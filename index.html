@@ -1,186 +1,183 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>STEPHEN'S HMS — Hospital Management System</title>
-  <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>STEPHEN'S HMS</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 </head>
 <body>
 
-<!-- START LOGIN SECTION -->
+<!-- LOGIN OVERLAY -->
 <div id="loginSection">
   <div class="login-container">
-    <!-- The Lamp -->
-    <div class="lamp" onclick="toggleLamp()">
-        <div id="lampGlow"></div>
-        <div class="lamp-pole"></div>
-        <p>CLICK TO LIGHT</p>
+    <div class="lamp" onclick="toggleLamp()" style="cursor:pointer; text-align:center;">
+        <div id="lampGlow" style="width:60px; height:30px; background:#333; border-radius:50px 50px 0 0; margin:0 auto; transition:0.3s;"></div>
+        <div style="width:10px; height:40px; background:#555; margin:0 auto;"></div>
+        <p style="color:#fff; font-size:10px; margin-top:5px; font-family:monospace;">CLICK TO LIGHT</p>
     </div>
-
-    <!-- The Login Card -->
-    <div id="loginForm">
-      <h2>Welcome</h2>
-      <div class="login-field">
-        <label>Username</label>
-        <input type="text" placeholder="ilmah">
-      </div>
-      
-      <div class="login-field">
-        <label>Password</label>
-        <input type="password" placeholder="••••••••">
-      </div>
-      
-      <button onclick="enterHMS()" class="sign-in-btn">Sign In</button>
+    <div id="loginForm" style="opacity:0.2; pointer-events:none; transition:0.5s;">
+      <h2 style="color:#fff; margin-bottom:20px; font-family:'DM Serif Display';">Welcome Admin</h2>
+      <button onclick="enterHMS()" class="sign-in-btn">Sign In to Dashboard</button>
     </div>
   </div>
 </div>
-<!-- END LOGIN SECTION -->
 
-<!-- ===== SIDEBAR NAV ===== -->
+<!-- SIDEBAR -->
 <aside class="sidebar" id="sidebar">
   <div class="sidebar-logo">
     <span class="logo-icon">⊕</span>
     <span class="logo-text">STEPHEN'S<em>HMS</em></span>
-    <!-- Mobile Close Button -->
-    <button class="mobile-only-close" onclick="toggleSidebar()">✕</button>
+    <button class="menu-toggle" onclick="toggleSidebar()" style="display:none;" id="mobileClose">✕</button>
   </div>
   <nav class="sidebar-nav">
-    <a href="#dashboard" class="nav-item active" onclick="showSection('dashboard',this)">
+    <a href="javascript:void(0)" class="nav-item active" onclick="showSection('dashboard', this)">
       <span class="nav-icon">◈</span><span>Dashboard</span>
     </a>
-    <a href="#patients" class="nav-item" onclick="showSection('patients',this)">
+    <a href="javascript:void(0)" class="nav-item" onclick="showSection('patients', this)">
       <span class="nav-icon">◉</span><span>Patients</span>
     </a>
-    <a href="#doctors" class="nav-item" onclick="showSection('doctors',this)">
+    <a href="javascript:void(0)" class="nav-item" onclick="showSection('doctors', this)">
       <span class="nav-icon">✦</span><span>Doctors</span>
     </a>
-    <a href="#appointments" class="nav-item" onclick="showSection('appointments',this)">
-      <span class="nav-icon">◫</span><span>Appointments</span>
-    </a>
-    <a href="#wards" class="nav-item" onclick="showSection('wards',this)">
+    <a href="javascript:void(0)" class="nav-item" onclick="showSection('wards', this)">
       <span class="nav-icon">▦</span><span>Wards & Beds</span>
     </a>
-    <a href="#pharmacy" class="nav-item" onclick="showSection('pharmacy',this)">
-      <span class="nav-icon">⬡</span><span>Pharmacy</span>
-    </a>
-    <a href="#billing" class="nav-item" onclick="showSection('billing',this)">
+    <a href="javascript:void(0)" class="nav-item" onclick="showSection('billing', this)">
       <span class="nav-icon">◪</span><span>Billing</span>
-    </a>
-    <a href="#reports" class="nav-item" onclick="showSection('reports',this)">
-      <span class="nav-icon">▤</span><span>Reports</span>
     </a>
   </nav>
   <div class="sidebar-footer">
-    <div class="user-avatar">AD</div>
+    <div class="user-avatar">SB</div>
     <div class="user-info">
-      <span class="user-name">Dr. Admin</span>
+      <span class="user-name">Dr. Stephen Boadi</span>
       <span class="user-role">Super Admin</span>
     </div>
-    <!-- FIXED LOGOUT BUTTON -->
     <span class="logout-btn" onclick="logoutHMS()">⏻</span>
   </div>
 </aside>
 
-<!-- ===== MAIN CONTENT ===== -->
+<!-- MAIN CONTENT -->
 <main class="main-content">
   <header class="topbar">
-    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
-    <div class="topbar-title" id="topbar-title">Dashboard Overview</div>
-    <div class="topbar-actions">
-      <div class="search-wrap">
-        <input type="text" placeholder="Search..." class="search-input" />
-        <span class="search-icon">⌕</span>
-      </div>
-      <div class="current-time" id="currentTime"></div>
-    </div>
+    <button class="menu-toggle" onclick="toggleSidebar()" style="display:block;">☰</button>
+    <div class="topbar-title" id="topbar-title">DASHBOARD</div>
+    <div class="current-time" id="currentTime" style="color:var(--teal); font-family:monospace;"></div>
   </header>
 
+  <!-- SECTION: DASHBOARD -->
   <section class="section active" id="dashboard">
     <div class="section-header">
       <h1>Good Morning, <em>Dr. Boadi</em></h1>
-      <p class="section-sub">Hospital Management System</p>
+      <p class="section-sub">Hospital Status: <span class="teal">Optimal</span></p>
     </div>
-
-    <!-- Your existing stats and cards go here -->
     <div class="stats-grid">
-        <div class="stat-card accent-teal">
-            <div class="stat-icon">◉</div>
-            <div class="stat-info"><span class="stat-num">1,284</span><span class="stat-label">Patients</span></div>
-        </div>
-        <div class="stat-card accent-blue">
-            <div class="stat-icon">✦</div>
-            <div class="stat-info"><span class="stat-num">96</span><span class="stat-label">Doctors</span></div>
-        </div>
+      <div class="stat-card accent-teal">
+        <div class="stat-icon">◉</div>
+        <div class="stat-info"><span class="stat-num">1,284</span><span class="stat-label">Total Patients</span></div>
+      </div>
+      <div class="stat-card accent-blue">
+        <div class="stat-icon">✦</div>
+        <div class="stat-info"><span class="stat-num">96</span><span class="stat-label">Active Doctors</span></div>
+      </div>
     </div>
   </section>
+
+  <!-- SECTION: DOCTORS (YOUR DOCTOR LIST) -->
+  <section class="section" id="doctors">
+    <div class="section-header">
+      <h1>Medical <em>Staff</em></h1>
+    </div>
+    <div class="doctor-grid">
+      <!-- DOCTOR 1 -->
+      <div class="doctor-card">
+        <div class="doc-avatar teal">SB</div>
+        <div class="doc-info">
+          <h4>Dr. Stephen Boadi</h4>
+          <span>Chief Surgeon</span>
+          <p>Available: <em>Mon - Fri</em></p>
+        </div>
+      </div>
+      <!-- DOCTOR 2 -->
+      <div class="doctor-card">
+        <div class="doc-avatar blue">AA</div>
+        <div class="doc-info">
+          <h4>Dr. Ama Antwi</h4>
+          <span>Pediatrician</span>
+          <p>Available: <em>Tue - Sat</em></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION: PATIENTS -->
+  <section class="section" id="patients">
+    <div class="section-header"><h1>Patient <em>Registry</em></h1></div>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr><th>Name</th><th>ID</th><th>Status</th><th>Ward</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Kofi Mensah</td><td><code>#PT-001</code></td><td><span class="status-pill green">Stable</span></td><td>General Ward</td></tr>
+          <tr><td>Abena Appiah</td><td><code>#PT-002</code></td><td><span class="status-pill orange">Recovery</span></td><td>ICU</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
 </main>
 
 <script>
   // 1. Navigation Logic
   function showSection(id, el) {
+    // Hide all sections
     document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    // Deactivate all nav items
     document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    
+    // Show the targeted section
     document.getElementById(id).classList.add('active');
-    if (el) el.classList.add('active');
+    // Highlight the button
+    el.classList.add('active');
+    // Update Header
+    document.getElementById('topbar-title').innerText = id.toUpperCase();
     
     // Auto-close sidebar on mobile
     if (window.innerWidth <= 900) {
-        document.getElementById('sidebar').classList.remove('open');
+      document.getElementById('sidebar').classList.remove('open');
     }
   }
 
-  // 2. Sidebar Toggle for Mobile
+  // 2. Sidebar Toggle
   function toggleSidebar() {
     document.getElementById('sidebar').classList.toggle('open');
   }
 
-  // 3. Login Lamp Toggle
+  // 3. Login/Lamp Logic
   let isOn = false;
   function toggleLamp() {
     isOn = !isOn;
-    const loginForm = document.getElementById('loginForm');
-    const glow = document.getElementById('lampGlow');
-    if (isOn) {
-      loginForm.style.opacity = "1";
-      loginForm.style.pointerEvents = "all";
-      glow.style.boxShadow = "0 0 60px 20px rgba(255, 255, 150, 0.6)";
-      glow.style.background = "#fff";
-    } else {
-      loginForm.style.opacity = "0.2";
-      loginForm.style.pointerEvents = "none";
-      glow.style.boxShadow = "none";
-      glow.style.background = "#333";
-    }
+    document.getElementById('loginForm').style.opacity = isOn ? "1" : "0.2";
+    document.getElementById('loginForm').style.pointerEvents = isOn ? "all" : "none";
+    document.getElementById('lampGlow').style.background = isOn ? "#fff" : "#333";
+    document.getElementById('lampGlow').style.boxShadow = isOn ? "0 0 50px #fff" : "none";
   }
 
-  // 4. Enter HMS
   function enterHMS() {
-    const loginScreen = document.getElementById('loginSection');
-    gsap.to(loginScreen, { y: "-100%", duration: 0.7, ease: "power2.inOut", onComplete: () => {
-        loginScreen.style.display = 'none';
-    }});
+    gsap.to("#loginSection", { y: "-100%", duration: 0.8, ease: "power4.inOut" });
   }
 
-  // 5. LOGOUT LOGIC (Back to Login Screen)
   function logoutHMS() {
-    const loginScreen = document.getElementById('loginSection');
-    loginScreen.style.display = 'flex';
-    gsap.fromTo(loginScreen, { y: "-100%" }, { y: "0%", duration: 0.7, ease: "power2.out" });
-    
-    // Reset lamp state for security feel
-    isOn = false;
-    toggleLamp();
+    gsap.to("#loginSection", { y: "0%", duration: 0.8, ease: "power4.out" });
   }
 
   // Clock
   setInterval(() => {
-    const now = new Date();
-    document.getElementById('currentTime').textContent = now.toLocaleTimeString('en-GB', {hour:'2-digit', minute:'2-digit'});
+    document.getElementById('currentTime').innerText = new Date().toLocaleTimeString();
   }, 1000);
 </script>
-
 </body>
 </html>
