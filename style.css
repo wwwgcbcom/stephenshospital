@@ -90,3 +90,28 @@ body { font-family: var(--font-body); background: var(--bg); color: var(--text);
 .sidebar-footer { position: absolute; bottom: 0; width: 100%; padding: 15px; border-top: 1px solid var(--border); display: flex; align-items: center; }
 .logout-btn { margin-left: auto; color: var(--text-muted); cursor: pointer; font-size: 20px; }
 .logout-btn:hover { color: var(--red); }
+
+
+/* ADD TO THE BOTTOM OF YOUR CSS */
+.section { 
+    display: none; 
+}
+.section.active { 
+    display: block; 
+    animation: fadeSlideIn 0.35s ease; 
+}
+
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Fix for mobile sidebar overlap */
+@media (max-width: 900px) {
+  .sidebar { transform: translateX(-100%); }
+  .sidebar.open { transform: translateX(0); z-index: 9999; }
+  .main-content { margin-left: 0 !important; }
+}
+
+
+
