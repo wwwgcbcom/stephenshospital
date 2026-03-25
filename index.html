@@ -9,34 +9,43 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 </head>
 <body>
-<!-- START LOGIN SECTION -->
-<div id="loginSection" style="position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: #121417; z-index: 9999; display: flex; flex-direction: row; justify-content: center; align-items: center; gap: 50px; font-family: sans-serif;">
-  
-  <!-- The Lamp -->
-  <div class="lamp" onclick="toggleLamp()" style="cursor: pointer; text-align: center;">
-      <div id="lampGlow" style="width: 100px; height: 100px; background: white; border-radius: 50% 50% 0 0; box-shadow: 0 0 0px yellow; transition: 0.3s;"></div>
-      <div style="width: 10px; height: 60px; background: #555; margin: 0 auto;"></div>
-      <p style="color: white; font-size: 12px; margin-top: 10px;">CLICK TO LIGHT</p>
-  </div>
 
-  <!-- The Login Card -->
-  <div id="loginForm" style="background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); padding: 40px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); color: white; width: 300px; transition: 0.5s; opacity: 0.2;">
-    <h2 style="margin-bottom: 20px; font-weight: 300;">Welcome</h2>
-    <label style="font-size: 12px; color: #aaa;">Username</label>
-    <input type="text" placeholder="ilmah" style="width: 100%; padding: 10px; margin: 8px 0 20px; background: rgba(255,255,255,0.1); border: none; border-radius: 5px; color: white;">
-    
-    <label style="font-size: 12px; color: #aaa;">Password</label>
-    <input type="password" placeholder="••••••••" style="width: 100%; padding: 10px; margin: 8px 0 20px; background: rgba(255,255,255,0.1); border: none; border-radius: 5px; color: white;">
-    
-    <button onclick="enterHMS()" style="width: 100%; padding: 12px; background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728); border: none; border-radius: 25px; font-weight: bold; cursor: pointer;">Sign In</button>
+<!-- START LOGIN SECTION -->
+<div id="loginSection">
+  <div class="login-container">
+    <!-- The Lamp -->
+    <div class="lamp" onclick="toggleLamp()">
+        <div id="lampGlow"></div>
+        <div class="lamp-pole"></div>
+        <p>CLICK TO LIGHT</p>
+    </div>
+
+    <!-- The Login Card -->
+    <div id="loginForm">
+      <h2>Welcome</h2>
+      <div class="login-field">
+        <label>Username</label>
+        <input type="text" placeholder="ilmah">
+      </div>
+      
+      <div class="login-field">
+        <label>Password</label>
+        <input type="password" placeholder="••••••••">
+      </div>
+      
+      <button onclick="enterHMS()" class="sign-in-btn">Sign In</button>
+    </div>
   </div>
 </div>
 <!-- END LOGIN SECTION -->
+
 <!-- ===== SIDEBAR NAV ===== -->
 <aside class="sidebar" id="sidebar">
   <div class="sidebar-logo">
     <span class="logo-icon">⊕</span>
     <span class="logo-text">STEPHEN'S<em>HMS</em></span>
+    <!-- Mobile Close Button -->
+    <button class="mobile-only-close" onclick="toggleSidebar()">✕</button>
   </div>
   <nav class="sidebar-nav">
     <a href="#dashboard" class="nav-item active" onclick="showSection('dashboard',this)">
@@ -70,541 +79,108 @@
       <span class="user-name">Dr. Admin</span>
       <span class="user-role">Super Admin</span>
     </div>
-    <span class="logout-btn">⏻</span>
+    <!-- FIXED LOGOUT BUTTON -->
+    <span class="logout-btn" onclick="logoutHMS()">⏻</span>
   </div>
 </aside>
 
 <!-- ===== MAIN CONTENT ===== -->
 <main class="main-content">
-
-  <!-- TOPBAR -->
   <header class="topbar">
     <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
     <div class="topbar-title" id="topbar-title">Dashboard Overview</div>
     <div class="topbar-actions">
       <div class="search-wrap">
-        <input type="text" placeholder="Search patients, doctors…" class="search-input" />
+        <input type="text" placeholder="Search..." class="search-input" />
         <span class="search-icon">⌕</span>
-      </div>
-      <div class="notif-bell">
-        🔔 <span class="notif-badge">4</span>
       </div>
       <div class="current-time" id="currentTime"></div>
     </div>
   </header>
 
-  <!-- ===== DASHBOARD ===== -->
   <section class="section active" id="dashboard">
     <div class="section-header">
       <h1>Good Morning, <em>Dr. Boadi</em></h1>
-      <p class="section-sub">Here's what's happening at STEPHEN'S Hospital today.</p>
+      <p class="section-sub">Hospital Management System</p>
     </div>
 
+    <!-- Your existing stats and cards go here -->
     <div class="stats-grid">
-      <div class="stat-card accent-teal">
-        <div class="stat-icon">◉</div>
-        <div class="stat-info">
-          <span class="stat-num">1,284</span>
-          <span class="stat-label">Total Patients</span>
+        <div class="stat-card accent-teal">
+            <div class="stat-icon">◉</div>
+            <div class="stat-info"><span class="stat-num">1,284</span><span class="stat-label">Patients</span></div>
         </div>
-        <div class="stat-trend up">↑ 8.2%</div>
-      </div>
-      <div class="stat-card accent-blue">
-        <div class="stat-icon">✦</div>
-        <div class="stat-info">
-          <span class="stat-num">96</span>
-          <span class="stat-label">Active Doctors</span>
+        <div class="stat-card accent-blue">
+            <div class="stat-icon">✦</div>
+            <div class="stat-info"><span class="stat-num">96</span><span class="stat-label">Doctors</span></div>
         </div>
-        <div class="stat-trend up">↑ 2</div>
-      </div>
-      <div class="stat-card accent-green">
-        <div class="stat-icon">◫</div>
-        <div class="stat-info">
-          <span class="stat-num">47</span>
-          <span class="stat-label">Today's Appointments</span>
-        </div>
-        <div class="stat-trend down">↓ 3</div>
-      </div>
-      <div class="stat-card accent-orange">
-        <div class="stat-icon">▦</div>
-        <div class="stat-info">
-          <span class="stat-num">312 / 400</span>
-          <span class="stat-label">Beds Occupied</span>
-        </div>
-        <div class="stat-trend neutral">78%</div>
-      </div>
-    </div>
-
-    <div class="dashboard-grid">
-      <!-- Recent Activity -->
-      <div class="card activity-card">
-        <div class="card-header">
-          <h3>Recent Activity</h3>
-          <span class="badge">Live</span>
-        </div>
-        <ul class="activity-list">
-          <li><span class="act-dot teal"></span><div><strong>Patient Admitted</strong><p>James Kweku — Ward B, Bed 14</p></div><span class="act-time">2m ago</span></li>
-          <li><span class="act-dot blue"></span><div><strong>Appointment Scheduled</strong><p>Dr. Mensah with Ama Boateng</p></div><span class="act-time">11m ago</span></li>
-          <li><span class="act-dot green"></span><div><strong>Prescription Issued</strong><p>Paracetamol × 20 — Room 3</p></div><span class="act-time">18m ago</span></li>
-          <li><span class="act-dot orange"></span><div><strong>Invoice Generated</strong><p>GHS 1,200 — Patient #00482</p></div><span class="act-time">34m ago</span></li>
-          <li><span class="act-dot teal"></span><div><strong>Patient Discharged</strong><p>Kofi Asante — ICU recovered</p></div><span class="act-time">1h ago</span></li>
-          <li><span class="act-dot blue"></span><div><strong>New Doctor Registered</strong><p>Dr. Priya Sharma — Cardiology</p></div><span class="act-time">2h ago</span></li>
-        </ul>
-      </div>
-
-      <!-- Appointments Today -->
-      <div class="card appt-today-card">
-        <div class="card-header">
-          <h3>Today's Schedule</h3>
-          <button class="btn-sm" onclick="showSection('appointments', document.querySelector('[onclick=\"showSection(\'appointments\',this)\"]'))">View All</button>
-        </div>
-        <div class="appt-list">
-          <div class="appt-item">
-            <div class="appt-time">08:00</div>
-            <div class="appt-bar teal"></div>
-            <div class="appt-info"><strong>Ama Boateng</strong><span>Dr. Mensah · Cardiology</span></div>
-            <span class="status-pill green">Done</span>
-          </div>
-          <div class="appt-item">
-            <div class="appt-time">09:30</div>
-            <div class="appt-bar blue"></div>
-            <div class="appt-info"><strong>Kwame Asante</strong><span>Dr. Ofori · Neurology</span></div>
-            <span class="status-pill blue">In Progress</span>
-          </div>
-          <div class="appt-item">
-            <div class="appt-time">11:00</div>
-            <div class="appt-bar orange"></div>
-            <div class="appt-info"><strong>Abena Mensah</strong><span>Dr. Sharma · Pediatrics</span></div>
-            <span class="status-pill orange">Waiting</span>
-          </div>
-          <div class="appt-item">
-            <div class="appt-time">14:00</div>
-            <div class="appt-bar teal"></div>
-            <div class="appt-info"><strong>John Amponsah</strong><span>Dr. Asante · Surgery</span></div>
-            <span class="status-pill gray">Upcoming</span>
-          </div>
-          <div class="appt-item">
-            <div class="appt-time">16:30</div>
-            <div class="appt-bar blue"></div>
-            <div class="appt-info"><strong>Grace Owusu</strong><span>Dr. Nkrumah · Oncology</span></div>
-            <span class="status-pill gray">Upcoming</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Ward Occupancy -->
-      <div class="card ward-card">
-        <div class="card-header"><h3>Ward Occupancy</h3></div>
-        <div class="ward-bars">
-          <div class="ward-row">
-            <span class="ward-name">General</span>
-            <div class="bar-track"><div class="bar-fill" style="width:82%"></div></div>
-            <span class="ward-pct">82%</span>
-          </div>
-          <div class="ward-row">
-            <span class="ward-name">ICU</span>
-            <div class="bar-track"><div class="bar-fill red" style="width:95%"></div></div>
-            <span class="ward-pct red">95%</span>
-          </div>
-          <div class="ward-row">
-            <span class="ward-name">Maternity</span>
-            <div class="bar-track"><div class="bar-fill" style="width:60%"></div></div>
-            <span class="ward-pct">60%</span>
-          </div>
-          <div class="ward-row">
-            <span class="ward-name">Pediatrics</span>
-            <div class="bar-track"><div class="bar-fill green" style="width:45%"></div></div>
-            <span class="ward-pct green">45%</span>
-          </div>
-          <div class="ward-row">
-            <span class="ward-name">Surgery</span>
-            <div class="bar-track"><div class="bar-fill orange" style="width:70%"></div></div>
-            <span class="ward-pct">70%</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Quick Stats Donut (CSS only) -->
-      <div class="card quick-stats-card">
-        <div class="card-header"><h3>Patient Status</h3></div>
-        <div class="donut-wrap">
-          <div class="donut"></div>
-          <div class="donut-legend">
-            <div class="leg-item"><span class="leg-dot teal"></span>Inpatient <strong>312</strong></div>
-            <div class="leg-item"><span class="leg-dot blue"></span>Outpatient <strong>682</strong></div>
-            <div class="leg-item"><span class="leg-dot orange"></span>Emergency <strong>48</strong></div>
-            <div class="leg-item"><span class="leg-dot green"></span>Recovered <strong>242</strong></div>
-          </div>
-        </div>
-      </div>
     </div>
   </section>
-
-  <!-- ===== PATIENTS ===== -->
-  <section class="section" id="patients">
-    <div class="section-header">
-      <h1>Patient <em>Registry</em></h1>
-      <p class="section-sub">Manage all patient records, admissions, and histories.</p>
-    </div>
-    <div class="toolbar">
-      <input type="text" placeholder="Search by name, ID, condition…" class="toolbar-search" />
-      <div class="toolbar-filters">
-        <select class="filter-select"><option>All Status</option><option>Admitted</option><option>Outpatient</option><option>Discharged</option><option>Emergency</option></select>
-        <select class="filter-select"><option>All Wards</option><option>General</option><option>ICU</option><option>Maternity</option><option>Pediatrics</option></select>
-      </div>
-      <button class="btn-primary" onclick="openModal('addPatientModal')">+ Add Patient</button>
-    </div>
-    <div class="table-wrap">
-      <table class="data-table">
-        <thead>
-          <tr><th>#ID</th><th>Patient Name</th><th>Age</th><th>Gender</th><th>Condition</th><th>Ward</th><th>Doctor</th><th>Status</th><th>Actions</th></tr>
-        </thead>
-        <tbody>
-          <tr><td><code>P-0001</code></td><td><div class="name-cell"><div class="avatar-sm">JK</div>James Kweku</div></td><td>34</td><td>Male</td><td>Hypertension</td><td>General</td><td>Dr. Mensah</td><td><span class="status-pill blue">Admitted</span></td><td><div class="action-btns"><button class="act-btn view">View</button><button class="act-btn edit">Edit</button><button class="act-btn del">Del</button></div></td></tr>
-          <tr><td><code>P-0002</code></td><td><div class="name-cell"><div class="avatar-sm">AB</div>Ama Boateng</div></td><td>28</td><td>Female</td><td>Cardiac Arrhythmia</td><td>ICU</td><td>Dr. Ofori</td><td><span class="status-pill red">Critical</span></td><td><div class="action-btns"><button class="act-btn view">View</button><button class="act-btn edit">Edit</button><button class="act-btn del">Del</button></div></td></tr>
-          <tr><td><code>P-0003</code></td><td><div class="name-cell"><div class="avatar-sm">KA</div>Kwame Asante</div></td><td>52</td><td>Male</td><td>Diabetes Type 2</td><td>General</td><td>Dr. Sharma</td><td><span class="status-pill orange">Outpatient</span></td><td><div class="action-btns"><button class="act-btn view">View</button><button class="act-btn edit">Edit</button><button class="act-btn del">Del</button></div></td></tr>
-          <tr><td><code>P-0004</code></td><td><div class="name-cell"><div class="avatar-sm">AM</div>Abena Mensah</div></td><td>7</td><td>Female</td><td>Malaria</td><td>Pediatrics</td><td>Dr. Nkrumah</td><td><span class="status-pill green">Recovering</span></td><td><div class="action-btns"><button class="act-btn view">View</button><button class="act-btn edit">Edit</button><button class="act-btn del">Del</button></div></td></tr>
-          <tr><td><code>P-0005</code></td><td><div class="name-cell"><div class="avatar-sm">GO</div>Grace Owusu</div></td><td>41</td><td>Female</td><td>Breast Cancer Stage 2</td><td>Oncology</td><td>Dr. Asante</td><td><span class="status-pill blue">Admitted</span></td><td><div class="action-btns"><button class="act-btn view">View</button><button class="act-btn edit">Edit</button><button class="act-btn del">Del</button></div></td></tr>
-          <tr><td><code>P-0006</code></td><td><div class="name-cell"><div class="avatar-sm">JA</div>John Amponsah</div></td><td>63</td><td>Male</td><td>Appendicitis</td><td>Surgery</td><td>Dr. Mensah</td><td><span class="status-pill orange">Pre-Op</span></td><td><div class="action-btns"><button class="act-btn view">View</button><button class="act-btn edit">Edit</button><button class="act-btn del">Del</button></div></td></tr>
-          <tr><td><code>P-0007</code></td><td><div class="name-cell"><div class="avatar-sm">EO</div>Efua Osei</div></td><td>24</td><td>Female</td><td>Pregnancy (38wk)</td><td>Maternity</td><td>Dr. Adjei</td><td><span class="status-pill teal">Monitoring</span></td><td><div class="action-btns"><button class="act-btn view">View</button><button class="act-btn edit">Edit</button><button class="act-btn del">Del</button></div></td></tr>
-          <tr><td><code>P-0008</code></td><td><div class="name-cell"><div class="avatar-sm">BB</div>Bright Bempah</div></td><td>19</td><td>Male</td><td>Fracture (Tibia)</td><td>Orthopedics</td><td>Dr. Darko</td><td><span class="status-pill green">Discharged</span></td><td><div class="action-btns"><button class="act-btn view">View</button><button class="act-btn edit">Edit</button><button class="act-btn del">Del</button></div></td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="table-footer">
-      <span>Showing 8 of 1,284 records</span>
-      <div class="pagination">
-        <button class="page-btn active">1</button>
-        <button class="page-btn">2</button>
-        <button class="page-btn">3</button>
-        <button class="page-btn">→</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== DOCTORS ===== -->
-  <section class="section" id="doctors">
-    <div class="section-header">
-      <h1>Medical <em>Staff</em></h1>
-      <p class="section-sub">All registered doctors, specialists, and their departments.</p>
-    </div>
-    <div class="toolbar">
-      <input type="text" placeholder="Search doctor name or specialty…" class="toolbar-search" />
-      <select class="filter-select"><option>All Departments</option><option>Cardiology</option><option>Neurology</option><option>Pediatrics</option><option>Oncology</option><option>Surgery</option></select>
-      <button class="btn-primary" onclick="openModal('addDoctorModal')">+ Add Doctor</button>
-    </div>
-    <div class="doctor-grid">
-      <div class="doctor-card"><div class="doc-avatar">SS</div><div class="doc-info"><h4>Dr. Sarfo Stephen</h4><span>Cardiology</span><p>15 yrs experience · <em>24 patients</em></p></div><span class="status-pill green">Available</span></div>
-      <div class="doctor-card"><div class="doc-avatar teal">AP</div><div class="doc-info"><h4>Dr. Antwi Philemon</h4><span>Neurology</span><p>10 yrs experience · <em>18 patients</em></p></div><span class="status-pill orange">In Surgery</span></div>
-      <div class="doctor-card"><div class="doc-avatar blue">JO</div><div class="doc-info"><h4>Dr. Jeffery Ofori</h4><span>Pediatrics</span><p>8 yrs experience · <em>31 patients</em></p></div><span class="status-pill green">Available</span></div>
-      <div class="doctor-card"><div class="doc-avatar orange">SA</div><div class="doc-info"><h4>Dr. Samuel Ati</h4><span>Oncology</span><p>20 yrs experience · <em>12 patients</em></p></div><span class="status-pill blue">On Call</span></div>
-      <div class="doctor-card"><div class="doc-avatar">DA</div><div class="doc-info"><h4>Dr. Ernest Adusei</h4><span>General Surgery</span><p>12 yrs experience · <em>8 patients</em></p></div><span class="status-pill green">Available</span></div>
-      <div class="doctor-card"><div class="doc-avatar teal">SD</div><div class="doc-info"><h4>Dr. Samuel Darko</h4><span>Orthopedics</span><p>9 yrs experience · <em>15 patients</em></p></div><span class="status-pill red">Off Duty</span></div>
-      <div class="doctor-card"><div class="doc-avatar blue">NS</div><div class="doc-info"><h4>Dr. Nana Sarfowaa</h4><span>Obstetrics</span><p>17 yrs experience · <em>22 patients</em></p></div><span class="status-pill green">Available</span></div>
-      <div class="doctor-card"><div class="doc-avatar orange">AG</div><div class="doc-info"><h4>Dr. Afia Gilly</h4><span>Emergency</span><p>6 yrs experience · <em>40 patients</em></p></div><span class="status-pill orange">In Surgery</span></div>
-    </div>
-  </section>
-
-  <!-- ===== APPOINTMENTS ===== -->
-  <section class="section" id="appointments">
-    <div class="section-header">
-      <h1>Appointment <em>Scheduler</em></h1>
-      <p class="section-sub">Manage, book, and track all appointments.</p>
-    </div>
-    <div class="toolbar">
-      <input type="text" placeholder="Search appointments…" class="toolbar-search" />
-      <select class="filter-select"><option>All Types</option><option>Consultation</option><option>Follow-up</option><option>Surgery</option><option>Emergency</option></select>
-      <input type="date" class="filter-select" />
-      <button class="btn-primary" onclick="openModal('addApptModal')">+ Book Appointment</button>
-    </div>
-    <div class="table-wrap">
-      <table class="data-table">
-        <thead>
-          <tr><th>#</th><th>Patient</th><th>Doctor</th><th>Department</th><th>Date & Time</th><th>Type</th><th>Status</th><th>Actions</th></tr>
-        </thead>
-        <tbody>
-          <tr><td><code>A-101</code></td><td>Ama Boateng</td><td>Dr. Mensah</td><td>Cardiology</td><td>Mar 24, 2026 · 08:00</td><td>Consultation</td><td><span class="status-pill green">Completed</span></td><td><div class="action-btns"><button class="act-btn view">View</button><button class="act-btn edit">Edit</button></div></td></tr>
-          <tr><td><code>A-102</code></td><td>Kwame Asante</td><td>Dr. Ofori</td><td>Neurology</td><td>Mar 24, 2026 · 09:30</td><td>Follow-up</td><td><span class="status-pill blue">In Progress</span></td><td><div class="action-btns"><button class="act-btn view">View</button><button class="act-btn edit">Edit</button></div></td></tr>
-          <tr><td><code>A-103</code></td><td>Abena Mensah</td><td>Dr. Sharma</td><td>Pediatrics</td><td>Mar 24, 2026 · 11:00</td><td>Consultation</td><td><span class="status-pill orange">Waiting</span></td><td><div class="action-btns"><button class="act-btn view">View</button><button class="act-btn edit">Edit</button></div></td></tr>
-          <tr><td><code>A-104</code></td><td>John Amponsah</td><td>Dr. Asante</td><td>Surgery</td><td>Mar 24, 2026 · 14:00</td><td>Surgery Prep</td><td><span class="status-pill gray">Scheduled</span></td><td><div class="action-btns"><button class="act-btn view">View</button><button class="act-btn edit">Edit</button></div></td></tr>
-          <tr><td><code>A-105</code></td><td>Grace Owusu</td><td>Dr. Nkrumah</td><td>Oncology</td><td>Mar 24, 2026 · 16:30</td><td>Chemo Session</td><td><span class="status-pill gray">Scheduled</span></td><td><div class="action-btns"><button class="act-btn view">View</button><button class="act-btn edit">Edit</button></div></td></tr>
-          <tr><td><code>A-106</code></td><td>James Kweku</td><td>Dr. Tetteh</td><td>Emergency</td><td>Mar 25, 2026 · 07:00</td><td>Emergency</td><td><span class="status-pill teal">Confirmed</span></td><td><div class="action-btns"><button class="act-btn view">View</button><button class="act-btn edit">Edit</button></div></td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="table-footer">
-      <span>Showing 6 of 47 today's appointments</span>
-      <div class="pagination">
-        <button class="page-btn active">1</button>
-        <button class="page-btn">2</button>
-        <button class="page-btn">→</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== WARDS ===== -->
-  <section class="section" id="wards">
-    <div class="section-header">
-      <h1>Wards &amp; <em>Bed Management</em></h1>
-      <p class="section-sub">Track ward occupancy and bed availability in real time.</p>
-    </div>
-    <div class="ward-overview-grid">
-      <div class="ward-overview-card">
-        <div class="wo-header teal-bg"><h3>General Ward</h3><span>A Block</span></div>
-        <div class="wo-stats"><div><strong>82</strong><small>Occupied</small></div><div><strong>18</strong><small>Available</small></div><div><strong>100</strong><small>Total</small></div></div>
-        <div class="bed-grid">
-          <div class="bed occupied" title="James Kweku">B1</div><div class="bed occupied" title="Kwame Asante">B2</div><div class="bed free">B3</div><div class="bed occupied">B4</div><div class="bed occupied">B5</div><div class="bed free">B6</div><div class="bed occupied">B7</div><div class="bed occupied">B8</div><div class="bed occupied">B9</div><div class="bed free">B10</div><div class="bed occupied">B11</div><div class="bed occupied">B12</div><div class="bed free">B13</div><div class="bed occupied" title="New">B14</div><div class="bed occupied">B15</div><div class="bed free">B16</div>
-        </div>
-        <div class="bed-legend"><span><i class="leg-box occupied"></i>Occupied</span><span><i class="leg-box free"></i>Available</span></div>
-      </div>
-      <div class="ward-overview-card">
-        <div class="wo-header red-bg"><h3>ICU</h3><span>Critical Care</span></div>
-        <div class="wo-stats"><div><strong>19</strong><small>Occupied</small></div><div><strong>1</strong><small>Available</small></div><div><strong>20</strong><small>Total</small></div></div>
-        <div class="bed-grid">
-          <div class="bed occupied">I1</div><div class="bed occupied">I2</div><div class="bed occupied">I3</div><div class="bed occupied">I4</div><div class="bed occupied">I5</div><div class="bed occupied">I6</div><div class="bed occupied">I7</div><div class="bed occupied">I8</div><div class="bed occupied">I9</div><div class="bed free">I10</div><div class="bed occupied">I11</div><div class="bed occupied">I12</div><div class="bed occupied">I13</div><div class="bed occupied">I14</div><div class="bed occupied">I15</div><div class="bed occupied">I16</div>
-        </div>
-        <div class="bed-legend"><span><i class="leg-box occupied"></i>Occupied</span><span><i class="leg-box free"></i>Available</span></div>
-      </div>
-      <div class="ward-overview-card">
-        <div class="wo-header blue-bg"><h3>Maternity</h3><span>B Block</span></div>
-        <div class="wo-stats"><div><strong>30</strong><small>Occupied</small></div><div><strong>20</strong><small>Available</small></div><div><strong>50</strong><small>Total</small></div></div>
-        <div class="bed-grid">
-          <div class="bed occupied">M1</div><div class="bed free">M2</div><div class="bed occupied">M3</div><div class="bed free">M4</div><div class="bed occupied">M5</div><div class="bed occupied">M6</div><div class="bed free">M7</div><div class="bed occupied">M8</div><div class="bed free">M9</div><div class="bed occupied">M10</div><div class="bed occupied">M11</div><div class="bed free">M12</div><div class="bed free">M13</div><div class="bed occupied">M14</div><div class="bed free">M15</div><div class="bed occupied">M16</div>
-        </div>
-        <div class="bed-legend"><span><i class="leg-box occupied"></i>Occupied</span><span><i class="leg-box free"></i>Available</span></div>
-      </div>
-      <div class="ward-overview-card">
-        <div class="wo-header green-bg"><h3>Pediatrics</h3><span>C Block</span></div>
-        <div class="wo-stats"><div><strong>18</strong><small>Occupied</small></div><div><strong>22</strong><small>Available</small></div><div><strong>40</strong><small>Total</small></div></div>
-        <div class="bed-grid">
-          <div class="bed free">P1</div><div class="bed occupied">P2</div><div class="bed free">P3</div><div class="bed occupied">P4</div><div class="bed free">P5</div><div class="bed free">P6</div><div class="bed occupied">P7</div><div class="bed free">P8</div><div class="bed occupied">P9</div><div class="bed free">P10</div><div class="bed occupied">P11</div><div class="bed free">P12</div><div class="bed occupied">P13</div><div class="bed free">P14</div><div class="bed free">P15</div><div class="bed occupied">P16</div>
-        </div>
-        <div class="bed-legend"><span><i class="leg-box occupied"></i>Occupied</span><span><i class="leg-box free"></i>Available</span></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== PHARMACY ===== -->
-  <section class="section" id="pharmacy">
-    <div class="section-header">
-      <h1>Pharmacy <em>Inventory</em></h1>
-      <p class="section-sub">Manage drug stock, prescriptions, and supply levels.</p>
-    </div>
-    <div class="toolbar">
-      <input type="text" placeholder="Search drug name, category…" class="toolbar-search" />
-      <select class="filter-select"><option>All Categories</option><option>Analgesic</option><option>Antibiotic</option><option>Antiviral</option><option>Cardiovascular</option></select>
-      <button class="btn-primary">+ Add Medicine</button>
-    </div>
-    <div class="table-wrap">
-      <table class="data-table">
-        <thead>
-          <tr><th>#</th><th>Drug Name</th><th>Category</th><th>Stock (units)</th><th>Unit Price</th><th>Expiry Date</th><th>Status</th><th>Actions</th></tr>
-        </thead>
-        <tbody>
-          <tr><td><code>RX-001</code></td><td>Paracetamol 500mg</td><td>Analgesic</td><td>4,200</td><td>GHS 0.50</td><td>Dec 2026</td><td><span class="status-pill green">In Stock</span></td><td><div class="action-btns"><button class="act-btn edit">Edit</button><button class="act-btn view">Restock</button></div></td></tr>
-          <tr><td><code>RX-002</code></td><td>Amoxicillin 250mg</td><td>Antibiotic</td><td>320</td><td>GHS 2.00</td><td>Jun 2026</td><td><span class="status-pill orange">Low Stock</span></td><td><div class="action-btns"><button class="act-btn edit">Edit</button><button class="act-btn view">Restock</button></div></td></tr>
-          <tr><td><code>RX-003</code></td><td>Metformin 850mg</td><td>Antidiabetic</td><td>1,800</td><td>GHS 1.20</td><td>Aug 2027</td><td><span class="status-pill green">In Stock</span></td><td><div class="action-btns"><button class="act-btn edit">Edit</button><button class="act-btn view">Restock</button></div></td></tr>
-          <tr><td><code>RX-004</code></td><td>Amlodipine 5mg</td><td>Cardiovascular</td><td>60</td><td>GHS 3.50</td><td>Mar 2026</td><td><span class="status-pill red">Expiring Soon</span></td><td><div class="action-btns"><button class="act-btn edit">Edit</button><button class="act-btn view">Restock</button></div></td></tr>
-          <tr><td><code>RX-005</code></td><td>Artemether 80mg</td><td>Antimalarial</td><td>2,400</td><td>GHS 4.80</td><td>Jan 2027</td><td><span class="status-pill green">In Stock</span></td><td><div class="action-btns"><button class="act-btn edit">Edit</button><button class="act-btn view">Restock</button></div></td></tr>
-          <tr><td><code>RX-006</code></td><td>Tramadol HCl 50mg</td><td>Analgesic</td><td>0</td><td>GHS 5.00</td><td>N/A</td><td><span class="status-pill red">Out of Stock</span></td><td><div class="action-btns"><button class="act-btn edit">Edit</button><button class="act-btn view">Restock</button></div></td></tr>
-          <tr><td><code>RX-007</code></td><td>Salbutamol Inhaler</td><td>Bronchodilator</td><td>180</td><td>GHS 18.00</td><td>Nov 2026</td><td><span class="status-pill green">In Stock</span></td><td><div class="action-btns"><button class="act-btn edit">Edit</button><button class="act-btn view">Restock</button></div></td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <!-- ===== BILLING ===== -->
-  <section class="section" id="billing">
-    <div class="section-header">
-      <h1>Billing &amp; <em>Invoices</em></h1>
-      <p class="section-sub">Track payments, generate invoices, and manage financial records.</p>
-    </div>
-    <div class="billing-stats">
-      <div class="b-stat"><span class="b-stat-num teal">GHS 48,200</span><span>Revenue This Month</span></div>
-      <div class="b-stat"><span class="b-stat-num orange">GHS 6,400</span><span>Pending Payments</span></div>
-      <div class="b-stat"><span class="b-stat-num green">GHS 41,800</span><span>Collected</span></div>
-      <div class="b-stat"><span class="b-stat-num red">GHS 2,100</span><span>Overdue</span></div>
-    </div>
-    <div class="toolbar">
-      <input type="text" placeholder="Search invoice, patient…" class="toolbar-search" />
-      <select class="filter-select"><option>All Status</option><option>Paid</option><option>Pending</option><option>Overdue</option></select>
-      <button class="btn-primary">+ New Invoice</button>
-    </div>
-    <div class="table-wrap">
-      <table class="data-table">
-        <thead>
-          <tr><th>Invoice #</th><th>Patient</th><th>Services</th><th>Amount (GHS)</th><th>Date</th><th>Method</th><th>Status</th><th>Actions</th></tr>
-        </thead>
-        <tbody>
-          <tr><td><code>INV-2001</code></td><td>Ama Boateng</td><td>ICU + Consultation</td><td>4,500</td><td>Mar 20, 2026</td><td>Insurance</td><td><span class="status-pill green">Paid</span></td><td><button class="act-btn view">Print</button></td></tr>
-          <tr><td><code>INV-2002</code></td><td>Kwame Asante</td><td>Lab Tests + Meds</td><td>720</td><td>Mar 21, 2026</td><td>Cash</td><td><span class="status-pill orange">Pending</span></td><td><button class="act-btn view">Print</button></td></tr>
-          <tr><td><code>INV-2003</code></td><td>James Kweku</td><td>Admission + Surgery</td><td>8,200</td><td>Mar 22, 2026</td><td>Mobile Money</td><td><span class="status-pill green">Paid</span></td><td><button class="act-btn view">Print</button></td></tr>
-          <tr><td><code>INV-2004</code></td><td>Abena Mensah</td><td>Pediatric Ward + Meds</td><td>1,200</td><td>Mar 23, 2026</td><td>Cash</td><td><span class="status-pill red">Overdue</span></td><td><button class="act-btn view">Print</button></td></tr>
-          <tr><td><code>INV-2005</code></td><td>Grace Owusu</td><td>Chemotherapy Session</td><td>3,800</td><td>Mar 24, 2026</td><td>Insurance</td><td><span class="status-pill orange">Pending</span></td><td><button class="act-btn view">Print</button></td></tr>
-          <tr><td><code>INV-2006</code></td><td>Efua Osei</td><td>Maternity + Delivery</td><td>2,600</td><td>Mar 24, 2026</td><td>Mobile Money</td><td><span class="status-pill green">Paid</span></td><td><button class="act-btn view">Print</button></td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <!-- ===== REPORTS ===== -->
-  <section class="section" id="reports">
-    <div class="section-header">
-      <h1>Reports &amp; <em>Analytics</em></h1>
-      <p class="section-sub">Visual summaries of hospital performance and outcomes.</p>
-    </div>
-    <div class="reports-grid">
-      <div class="report-card">
-        <h4>Monthly Admissions</h4>
-        <div class="bar-chart">
-          <div class="bc-bar" style="--h:60%"><span>Jan</span></div>
-          <div class="bc-bar" style="--h:80%"><span>Feb</span></div>
-          <div class="bc-bar" style="--h:45%"><span>Mar</span></div>
-          <div class="bc-bar" style="--h:90%"><span>Apr</span></div>
-          <div class="bc-bar" style="--h:70%"><span>May</span></div>
-          <div class="bc-bar" style="--h:55%"><span>Jun</span></div>
-          <div class="bc-bar" style="--h:85%"><span>Jul</span></div>
-          <div class="bc-bar active" style="--h:78%"><span>Aug</span></div>
-        </div>
-      </div>
-      <div class="report-card">
-        <h4>Top Departments by Patient Load</h4>
-        <div class="h-bars">
-          <div class="hbar-row"><span>Emergency</span><div class="hbar-track"><div class="hbar-fill" style="width:92%">92%</div></div></div>
-          <div class="hbar-row"><span>General</span><div class="hbar-track"><div class="hbar-fill blue" style="width:78%">78%</div></div></div>
-          <div class="hbar-row"><span>Cardiology</span><div class="hbar-track"><div class="hbar-fill orange" style="width:65%">65%</div></div></div>
-          <div class="hbar-row"><span>Oncology</span><div class="hbar-track"><div class="hbar-fill green" style="width:50%">50%</div></div></div>
-          <div class="hbar-row"><span>Pediatrics</span><div class="hbar-track"><div class="hbar-fill" style="width:44%">44%</div></div></div>
-        </div>
-      </div>
-      <div class="report-card">
-        <h4>Revenue Overview (2026)</h4>
-        <div class="revenue-table">
-          <div class="rev-row header"><span>Month</span><span>Revenue</span><span>Expenses</span><span>Net</span></div>
-          <div class="rev-row"><span>January</span><span class="teal">GHS 42,100</span><span>GHS 28,000</span><span class="green">+14,100</span></div>
-          <div class="rev-row"><span>February</span><span class="teal">GHS 38,500</span><span>GHS 31,200</span><span class="green">+7,300</span></div>
-          <div class="rev-row"><span>March</span><span class="teal">GHS 48,200</span><span>GHS 30,500</span><span class="green">+17,700</span></div>
-        </div>
-      </div>
-      <div class="report-card">
-        <h4>Quick Stats Summary</h4>
-        <div class="quick-report">
-          <div class="qr-item"><span class="qr-label">Avg. Stay Duration</span><span class="qr-val">4.2 days</span></div>
-          <div class="qr-item"><span class="qr-label">Mortality Rate</span><span class="qr-val red">1.4%</span></div>
-          <div class="qr-item"><span class="qr-label">Recovery Rate</span><span class="qr-val green">94.2%</span></div>
-          <div class="qr-item"><span class="qr-label">Patient Satisfaction</span><span class="qr-val teal">88%</span></div>
-          <div class="qr-item"><span class="qr-label">Staff Utilization</span><span class="qr-val">76%</span></div>
-          <div class="qr-item"><span class="qr-label">Bed Turnover Rate</span><span class="qr-val orange">3.1</span></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
 </main>
 
-<!-- ===== MODALS ===== -->
-<div class="modal-overlay" id="addPatientModal" onclick="closeModalOutside(event, 'addPatientModal')">
-  <div class="modal">
-    <div class="modal-header"><h3>Add New Patient</h3><button onclick="closeModal('addPatientModal')">✕</button></div>
-    <div class="modal-body">
-      <div class="form-row"><div class="form-group"><label>First Name</label><input type="text" placeholder="e.g. James" /></div><div class="form-group"><label>Last Name</label><input type="text" placeholder="e.g. Kweku" /></div></div>
-      <div class="form-row"><div class="form-group"><label>Age</label><input type="number" placeholder="34" /></div><div class="form-group"><label>Gender</label><select><option>Male</option><option>Female</option><option>Other</option></select></div></div>
-      <div class="form-row"><div class="form-group"><label>Phone</label><input type="tel" placeholder="+233 24 000 0000" /></div><div class="form-group"><label>Blood Type</label><select><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>O+</option><option>O-</option><option>AB+</option><option>AB-</option></select></div></div>
-      <div class="form-group"><label>Condition / Diagnosis</label><input type="text" placeholder="e.g. Hypertension" /></div>
-      <div class="form-row"><div class="form-group"><label>Ward</label><select><option>General</option><option>ICU</option><option>Maternity</option><option>Pediatrics</option><option>Surgery</option></select></div><div class="form-group"><label>Assigned Doctor</label><select><option>Dr. Mensah</option><option>Dr. Ofori</option><option>Dr. Sharma</option><option>Dr. Nkrumah</option></select></div></div>
-      <div class="form-group"><label>Notes</label><textarea placeholder="Additional notes…" rows="3"></textarea></div>
-    </div>
-    <div class="modal-footer"><button class="btn-ghost" onclick="closeModal('addPatientModal')">Cancel</button><button class="btn-primary">Save Patient</button></div>
-  </div>
-</div>
-
-<div class="modal-overlay" id="addDoctorModal" onclick="closeModalOutside(event, 'addDoctorModal')">
-  <div class="modal">
-    <div class="modal-header"><h3>Add New Doctor</h3><button onclick="closeModal('addDoctorModal')">✕</button></div>
-    <div class="modal-body">
-      <div class="form-row"><div class="form-group"><label>First Name</label><input type="text" /></div><div class="form-group"><label>Last Name</label><input type="text" /></div></div>
-      <div class="form-row"><div class="form-group"><label>Specialty</label><select><option>Cardiology</option><option>Neurology</option><option>Pediatrics</option><option>Surgery</option><option>Oncology</option></select></div><div class="form-group"><label>Years of Experience</label><input type="number" /></div></div>
-      <div class="form-group"><label>Email</label><input type="email" placeholder="doctor@medcore.gh" /></div>
-      <div class="form-group"><label>Phone</label><input type="tel" /></div>
-      <div class="form-group"><label>License Number</label><input type="text" /></div>
-    </div>
-    <div class="modal-footer"><button class="btn-ghost" onclick="closeModal('addDoctorModal')">Cancel</button><button class="btn-primary">Save Doctor</button></div>
-  </div>
-</div>
-
-<div class="modal-overlay" id="addApptModal" onclick="closeModalOutside(event, 'addApptModal')">
-  <div class="modal">
-    <div class="modal-header"><h3>Book Appointment</h3><button onclick="closeModal('addApptModal')">✕</button></div>
-    <div class="modal-body">
-      <div class="form-group"><label>Patient</label><select><option>James Kweku</option><option>Ama Boateng</option><option>Kwame Asante</option></select></div>
-      <div class="form-group"><label>Doctor</label><select><option>Dr. Mensah</option><option>Dr. Ofori</option><option>Dr. Sharma</option></select></div>
-      <div class="form-row"><div class="form-group"><label>Date</label><input type="date" /></div><div class="form-group"><label>Time</label><input type="time" /></div></div>
-      <div class="form-group"><label>Type</label><select><option>Consultation</option><option>Follow-up</option><option>Surgery</option><option>Emergency</option></select></div>
-      <div class="form-group"><label>Notes</label><textarea rows="3"></textarea></div>
-    </div>
-    <div class="modal-footer"><button class="btn-ghost" onclick="closeModal('addApptModal')">Cancel</button><button class="btn-primary">Book Now</button></div>
-  </div>
-</div>
-
 <script>
-  // Section navigation
+  // 1. Navigation Logic
   function showSection(id, el) {
     document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
     document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
     document.getElementById(id).classList.add('active');
     if (el) el.classList.add('active');
-    const titles = {
-      dashboard: 'Dashboard Overview', patients: 'Patient Registry',
-      doctors: 'Medical Staff', appointments: 'Appointment Scheduler',
-      wards: 'Wards & Bed Management', pharmacy: 'Pharmacy Inventory',
-      billing: 'Billing & Invoices', reports: 'Reports & Analytics'
-    };
-    document.getElementById('topbar-title').textContent = titles[id] || '';
-    if (window.innerWidth < 900) document.getElementById('sidebar').classList.remove('open');
-    return false;
+    
+    // Auto-close sidebar on mobile
+    if (window.innerWidth <= 900) {
+        document.getElementById('sidebar').classList.remove('open');
+    }
   }
 
-  // Modals
-  function openModal(id) { document.getElementById(id).classList.add('active'); }
-  function closeModal(id) { document.getElementById(id).classList.remove('active'); }
-  function closeModalOutside(e, id) { if (e.target.classList.contains('modal-overlay')) closeModal(id); }
+  // 2. Sidebar Toggle for Mobile
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+  }
 
-  // Sidebar toggle
-  function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
+  // 3. Login Lamp Toggle
+  let isOn = false;
+  function toggleLamp() {
+    isOn = !isOn;
+    const loginForm = document.getElementById('loginForm');
+    const glow = document.getElementById('lampGlow');
+    if (isOn) {
+      loginForm.style.opacity = "1";
+      loginForm.style.pointerEvents = "all";
+      glow.style.boxShadow = "0 0 60px 20px rgba(255, 255, 150, 0.6)";
+      glow.style.background = "#fff";
+    } else {
+      loginForm.style.opacity = "0.2";
+      loginForm.style.pointerEvents = "none";
+      glow.style.boxShadow = "none";
+      glow.style.background = "#333";
+    }
+  }
+
+  // 4. Enter HMS
+  function enterHMS() {
+    const loginScreen = document.getElementById('loginSection');
+    gsap.to(loginScreen, { y: "-100%", duration: 0.7, ease: "power2.inOut", onComplete: () => {
+        loginScreen.style.display = 'none';
+    }});
+  }
+
+  // 5. LOGOUT LOGIC (Back to Login Screen)
+  function logoutHMS() {
+    const loginScreen = document.getElementById('loginSection');
+    loginScreen.style.display = 'flex';
+    gsap.fromTo(loginScreen, { y: "-100%" }, { y: "0%", duration: 0.7, ease: "power2.out" });
+    
+    // Reset lamp state for security feel
+    isOn = false;
+    toggleLamp();
+  }
 
   // Clock
-  function updateTime() {
+  setInterval(() => {
     const now = new Date();
-    document.getElementById('currentTime').textContent = now.toLocaleTimeString('en-GB', {hour:'2-digit', minute:'2-digit', second:'2-digit'});
-  }
-  updateTime(); setInterval(updateTime, 1000);
+    document.getElementById('currentTime').textContent = now.toLocaleTimeString('en-GB', {hour:'2-digit', minute:'2-digit'});
+  }, 1000);
 </script>
+
 </body>
-<script>
-let isOn = false;
-
-function toggleLamp() {
-  isOn = !isOn;
-  const loginForm = document.getElementById('loginForm');
-  const glow = document.getElementById('lampGlow');
-  
-  if (isOn) {
-    loginForm.style.opacity = "1";
-    glow.style.boxShadow = "0 0 50px 20px rgba(255, 255, 100, 0.5)";
-    gsap.to("body", { backgroundColor: "#1c1f24", duration: 0.6 });
-  } else {
-    loginForm.style.opacity = "0.2";
-    glow.style.boxShadow = "0 0 0px yellow";
-    gsap.to("body", { backgroundColor: "#121417", duration: 0.6 });
-  }
-}
-
-// This function hides the login screen and shows your Sidebar/Dashboard
-function enterHMS() {
-  const loginScreen = document.getElementById('loginSection');
-  gsap.to(loginScreen, { opacity: 0, duration: 0.5, onComplete: () => {
-    loginScreen.style.display = 'none';
-  }});
-}
-</script>
 </html>
