@@ -3,151 +3,193 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hospital Management System</title>
-  <!-- Link your CSS file here or paste the CSS inside <style> -->
-  <link rel="stylesheet" href="styles.css">
+  <title>MedCore HMS</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Serif+Display:wght@400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a2d9b5e52e.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
-  <!-- Login Section -->
-  <section id="loginSection">
-    <div id="loginForm" class="login-card">
-      <h2>Login</h2>
-      <input type="text" placeholder="Username" />
-      <input type="password" placeholder="Password" />
-      <button class="sign-in-btn" onclick="enterHMS()">Sign In</button>
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <i class="fas fa-clinic-medical logo-icon"></i>
+      <div class="logo-text">MedCore <em>HMS</em></div>
     </div>
-    <div id="lampGlow"></div>
-    <button onclick="toggleLamp()">Toggle Lamp</button>
-  </section>
+    <nav class="sidebar-nav">
+      <a class="nav-item active" href="#" data-section="dashboard">
+        <i class="fas fa-tachometer-alt nav-icon"></i> Dashboard
+      </a>
+      <a class="nav-item" href="#" data-section="appointments">
+        <i class="fas fa-calendar-check nav-icon"></i> Appointments
+      </a>
+      <a class="nav-item" href="#" data-section="patients">
+        <i class="fas fa-user-injured nav-icon"></i> Patients
+      </a>
+      <a class="nav-item" href="#" data-section="doctors">
+        <i class="fas fa-user-md nav-icon"></i> Doctors
+      </a>
+      <a class="nav-item" href="#" data-section="billing">
+        <i class="fas fa-file-invoice-dollar nav-icon"></i> Billing
+      </a>
+      <a class="nav-item" href="#" data-section="reports">
+        <i class="fas fa-chart-line nav-icon"></i> Reports
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="user-avatar">GM</div>
+      <div class="user-info">
+        <span class="user-name">Boadi Maxwell</span>
+        <span class="user-role">Admin</span>
+      </div>
+      <i class="fas fa-sign-out-alt logout-btn"></i>
+    </div>
+  </aside>
 
-  <!-- Sidebar (example) -->
-  <div id="sidebar" class="sidebar">
-    <!-- Your sidebar content here -->
-  </div>
-
-  <!-- Main content sections -->
+  <!-- MAIN CONTENT -->
   <div class="main-content">
-    <div class="section active" id="dashboard">Dashboard content here</div>
-    <div class="section" id="patients">Patients content here</div>
-    <div class="section" id="doctors">Doctors content here</div>
-    <div class="section" id="appointments">Appointments content here</div>
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <button class="menu-toggle"><i class="fas fa-bars"></i></button>
+      <div class="topbar-title">Hospital Management Dashboard</div>
+      <div class="topbar-actions">
+        <div class="search-wrap">
+          <input type="text" class="search-input" placeholder="Search...">
+          <i class="fas fa-search search-icon"></i>
+        </div>
+        <div class="notif-bell">
+          <i class="fas fa-bell"></i>
+          <span class="notif-badge">3</span>
+        </div>
+        <div class="current-time" id="current-time"></div>
+      </div>
+    </header>
+
+    <!-- SECTIONS -->
+    <section class="section active" id="dashboard">
+      <div class="section-header">
+        <h1>Welcome, <em>Boadi</em></h1>
+        <div class="section-sub">Hospital Overview & Quick Stats</div>
+      </div>
+
+      <!-- STAT CARDS -->
+      <div class="stats-grid">
+        <div class="stat-card accent-teal">
+          <i class="fas fa-procedures stat-icon"></i>
+          <div class="stat-info">
+            <span class="stat-num">124</span>
+            <span class="stat-label">Patients</span>
+          </div>
+          <span class="stat-trend up">+5%</span>
+        </div>
+        <div class="stat-card accent-blue">
+          <i class="fas fa-user-md stat-icon"></i>
+          <div class="stat-info">
+            <span class="stat-num">23</span>
+            <span class="stat-label">Doctors</span>
+          </div>
+          <span class="stat-trend neutral">0%</span>
+        </div>
+        <div class="stat-card accent-green">
+          <i class="fas fa-calendar-check stat-icon"></i>
+          <div class="stat-info">
+            <span class="stat-num">18</span>
+            <span class="stat-label">Appointments Today</span>
+          </div>
+          <span class="stat-trend up">+12%</span>
+        </div>
+        <div class="stat-card accent-orange">
+          <i class="fas fa-file-invoice-dollar stat-icon"></i>
+          <div class="stat-info">
+            <span class="stat-num">$15,400</span>
+            <span class="stat-label">Revenue</span>
+          </div>
+          <span class="stat-trend down">-3%</span>
+        </div>
+      </div>
+
+      <!-- DASHBOARD GRID PLACEHOLDER -->
+      <div class="dashboard-grid">
+        <div class="card">
+          <div class="card-header">
+            <h3>Today's Appointments</h3>
+            <span class="badge">Updated</span>
+          </div>
+          <div class="appt-list">
+            <div class="appt-item">
+              <span class="appt-time">09:00</span>
+              <span class="appt-bar teal"></span>
+              <div class="appt-info"><strong>John Doe</strong> <span>Dr. Smith</span></div>
+            </div>
+            <div class="appt-item">
+              <span class="appt-time">10:30</span>
+              <span class="appt-bar blue"></span>
+              <div class="appt-info"><strong>Mary Jane</strong> <span>Dr. Brown</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h3>Ward Occupancy</h3>
+          </div>
+          <div class="ward-bars">
+            <div class="ward-row">
+              <span class="ward-name">Ward A</span>
+              <div class="bar-track"><div class="bar-fill green" style="width: 80%;"></div></div>
+              <span class="ward-pct green">80%</span>
+            </div>
+            <div class="ward-row">
+              <span class="ward-name">Ward B</span>
+              <div class="bar-track"><div class="bar-fill red" style="width: 60%;"></div></div>
+              <span class="ward-pct red">60%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Additional sections -->
+    <section class="section" id="appointments">Appointments Section</section>
+    <section class="section" id="patients">Patients Section</section>
+    <section class="section" id="doctors">Doctors Section</section>
+    <section class="section" id="billing">Billing Section</section>
+    <section class="section" id="reports">Reports Section</section>
+
   </div>
 
-  <!-- Modal -->
-  <div class="modal-overlay" id="addApptModal" onclick="closeModalOutside(event, 'addApptModal')">
-    <div class="modal">
-      <div class="modal-header">
-        <h3>Book Appointment</h3>
-        <button onclick="closeModal('addApptModal')">✕</button>
-      </div>
-      <div class="modal-body">
-        <div class="form-group">
-          <label>Patient</label>
-          <select>
-            <option>James Kweku</option>
-            <option>Ama Boateng</option>
-            <option>Kwame Asante</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Doctor</label>
-          <select>
-            <option>Dr. Mensah</option>
-            <option>Dr. Ofori</option>
-            <option>Dr. Sharma</option>
-          </select>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label>Date</label>
-            <input type="date" />
-          </div>
-          <div class="form-group">
-            <label>Time</label>
-            <input type="time" />
-          </div>
-        </div>
-        <div class="form-group">
-          <label>Type</label>
-          <select>
-            <option>Consultation</option>
-            <option>Follow-up</option>
-            <option>Surgery</option>
-            <option>Emergency</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Notes</label>
-          <textarea rows="3"></textarea>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button class="btn-ghost" onclick="closeModal('addApptModal')">Cancel</button>
-        <button class="btn-primary">Book Now</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- JavaScript -->
+  <!-- JS -->
   <script>
-    // Section navigation
-    function showSection(id, el) {
-      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-      if (el) el.classList.add('active');
-      const titles = {
-        dashboard: 'Dashboard Overview', patients: 'Patient Registry',
-        doctors: 'Medical Staff', appointments: 'Appointment Scheduler',
-        wards: 'Wards & Bed Management', pharmacy: 'Pharmacy Inventory',
-        billing: 'Billing & Invoices', reports: 'Reports & Analytics'
-      };
-      document.getElementById('topbar-title').textContent = titles[id] || '';
-      if (window.innerWidth < 900) document.getElementById('sidebar').classList.remove('open');
-      return false;
-    }
-
-    // Modals
-    function openModal(id) { document.getElementById(id).classList.add('active'); }
-    function closeModal(id) { document.getElementById(id).classList.remove('active'); }
-    function closeModalOutside(e, id) { if (e.target.classList.contains('modal-overlay')) closeModal(id); }
-
     // Sidebar toggle
-    function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
+    const sidebar = document.querySelector('.sidebar');
+    const toggleBtn = document.querySelector('.menu-toggle');
+    toggleBtn.addEventListener('click', () => sidebar.classList.toggle('collapsed'));
 
-    // Clock
+    // Live time
     function updateTime() {
       const now = new Date();
-      document.getElementById('currentTime').textContent = now.toLocaleTimeString('en-GB', {hour:'2-digit', minute:'2-digit', second:'2-digit'});
+      const hours = now.getHours().toString().padStart(2,'0');
+      const minutes = now.getMinutes().toString().padStart(2,'0');
+      const seconds = now.getSeconds().toString().padStart(2,'0');
+      document.getElementById('current-time').textContent = `${hours}:${minutes}:${seconds}`;
     }
-    updateTime(); setInterval(updateTime, 1000);
+    setInterval(updateTime, 1000);
+    updateTime();
 
-    // Lamp toggle
-    let isOn = false;
-    function toggleLamp() {
-      isOn = !isOn;
-      const loginForm = document.getElementById('loginForm');
-      const glow = document.getElementById('lampGlow');
-
-      if (isOn) {
-        loginForm.style.opacity = "1";
-        glow.style.boxShadow = "0 0 50px 20px rgba(255, 255, 100, 0.5)";
-        gsap.to("body", { backgroundColor: "#1c1f24", duration: 0.6 });
-      } else {
-        loginForm.style.opacity = "0.2";
-        glow.style.boxShadow = "0 0 0px yellow";
-        gsap.to("body", { backgroundColor: "#121417", duration: 0.6 });
-      }
-    }
-
-    // Enter HMS (hide login)
-    function enterHMS() {
-      const loginScreen = document.getElementById('loginSection');
-      gsap.to(loginScreen, { opacity: 0, duration: 0.5, onComplete: () => {
-        loginScreen.style.display = 'none';
-      }});
-    }
+    // Section navigation
+    const navItems = document.querySelectorAll('.nav-item');
+    const sections = document.querySelectorAll('.section');
+    navItems.forEach(item => {
+      item.addEventListener('click', e => {
+        e.preventDefault();
+        navItems.forEach(i => i.classList.remove('active'));
+        item.classList.add('active');
+        const target = item.getAttribute('data-section');
+        sections.forEach(s => s.classList.remove('active'));
+        document.getElementById(target).classList.add('active');
+      });
+    });
   </script>
 </body>
 </html>
